@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import java.util.Random;
+
 public class Flappy extends ApplicationAdapter {
 	private SpriteBatch batch; // Criada para utilizar animações renderizar
 	private Random numeroRandomico;
@@ -20,6 +21,7 @@ public class Flappy extends ApplicationAdapter {
 	private TextureManager textureManager;
 	private Bird bird;
 	private GameLogic gameLogic;
+
 	@Override
 	public void create() {
 		textureManager = new TextureManager();
@@ -51,6 +53,7 @@ public class Flappy extends ApplicationAdapter {
 		renderer.renderizarTudo(batch, textureManager, pipes, bird, pontuacaos, configCamera);  	// Renderiza a coisa toda dos objetivos do jogo !
 		gameLogic.logica(batch,salvarRecord,pontuacaos.getPontuacaoStr(),song,layout);
 	}
+
 	@Override
 	public void resize(int width, int height) { // importante, muito
 		configCamera.getViewport().update(width, height);
