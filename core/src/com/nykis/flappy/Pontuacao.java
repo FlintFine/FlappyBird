@@ -9,6 +9,15 @@ package com.nykis.flappy;
         private int intervaloPontuacao=0;
         private int intervaloPontuacaoSprite=0;
 
+        private String pontuacaoStr;
+
+        public String getPontuacaoStr() {
+            return pontuacaoStr;
+        }
+
+        public void setPontuacaoStr(String pontuacaoStr) {
+            this.pontuacaoStr = pontuacaoStr;
+        }
 
         public void update() {
             if (pontuacao >= 0 && pontuacao < 2) {          //tentar botar um switch
@@ -16,7 +25,6 @@ package com.nykis.flappy;
             } else if (pontuacao >= 2) {
                 intervaloPontuacao = 1;
             }
-
         }
         public void updateSprite () {
             if (pontuacao >= 1 && pontuacao < 10) {    //tentar botar um switch
@@ -29,20 +37,12 @@ package com.nykis.flappy;
             } if (pontuacao==0){
                 intervaloPontuacaoSprite=0;
             }
-
         }
-
         public void atualizaTudo() {
            update();
            updateSprite();
-
           //  pontuacaos.setPontuacao(pontuacaos.getPontuacao()); // >>Set Atualiza o valor da pontuação, se ñ fizer isso a pontuação n atualiza para cair na condição do IF
-
-
         }
-
-
-
         public int getPontuacao() { return pontuacao;    }
         public void setPontuacao(int pontuacao) {
             this.pontuacao = pontuacao;
@@ -58,18 +58,13 @@ package com.nykis.flappy;
         public float getLarguraPontuacao() {
             return larguraPontuacao;
         }
-        public void setLarguraPontuacao(float larguraPontuacao) {
-            this.larguraPontuacao = larguraPontuacao;
-        }
-
+        public void setLarguraPontuacao(float larguraPontuacao) {this.larguraPontuacao = larguraPontuacao;}
         public int getIntervaloPontuacao() {
             return intervaloPontuacao;
         }
-
         public int getIntervaloPontuacaoSprite() {
             return intervaloPontuacaoSprite;
-        }
-    }
+        }}
 
     //Anteriormente
 

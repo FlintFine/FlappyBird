@@ -30,7 +30,7 @@ public class Effects {
         ParticleEffect effect = new ParticleEffect();
         effect.load(Gdx.files.internal("particles/Particle Park Snow Flakes.p"), Gdx.files.internal("particles"));
         effect.scaleEffect(2, 0, 2);
-        effect.setPosition(Gdx.graphics.getWidth() / 32, Gdx.graphics.getHeight());
+        effect.setPosition(Gdx.graphics.getWidth() / 32, Gdx.graphics.getHeight()+158);
         effect.start();
         effects.add(effect); // Adiciona o efeito na lista
 
@@ -38,6 +38,7 @@ public class Effects {
 
     }
 
+    
     public static ParticleEffect createRainEffect() {
         ParticleEffect effect = new ParticleEffect();
         effect.load(Gdx.files.internal("particles/Particle Park Rain.p"), Gdx.files.internal("particles"));

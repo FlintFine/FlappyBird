@@ -38,19 +38,17 @@ public class Render {
                 break;
         }
     }
-        public void renderizarTudo(Batch batch, TextureManager textureManager, Pipes pipes, Bird bird, Pontuacao pontuacaos, ConfiguracoesCamera configCamera) {
+    public void renderizarTudo(Batch batch, TextureManager textureManager, Pipes pipes, Bird bird, Pontuacao pontuacaos, ConfiguracoesCamera configCamera) {
             batch.setProjectionMatrix(configCamera.getCamera().combined);
             renderBackground((SpriteBatch) batch, textureManager.getFundo(), textureManager.getFundo2(), pontuacaos.getIntervaloPontuacao(), configCamera.getLarguraDispositivo(), configCamera.getAlturaDispositivo());
             batch.draw(textureManager.getCanoTopo(), pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 + pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica());
             batch.draw(textureManager.getCanoBaixo(), pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 - textureManager.getCanoBaixo().getHeight() - +pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica());
             batch.draw(textureManager.getPassaros()[(int) bird.getVariacao()], 30, bird.getPosicaoInicialVertial(), 115, 115);
-           renderEffects(pontuacaos.getIntervaloPontuacaoSprite(), batch);
+            renderEffects(pontuacaos.getIntervaloPontuacaoSprite(), batch);
         }
 
-
-
     public void dispose(TextureManager textureManager) {
-       textureManager.getFundo().dispose();
+        textureManager.getFundo().dispose();
         textureManager.getFundo2().dispose();
         textureManager.getCanoBaixo().dispose();
         textureManager.getCanoTopo().dispose();

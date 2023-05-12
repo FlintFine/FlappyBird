@@ -23,4 +23,9 @@ public class SalvarRecord {
 				}
         }
 
+        public void carregaeSalva(Pontuacao pontuacaos){
+             Preferences prefs = Gdx.app.getPreferences("flappy-bird-prefs"); //SALVAR PONTUAÇÃO APÓS FECHAMENTO// cria um objeto Preferences com o nome "flappy-bird-prefs"
+            pontuacaos.setRecorde(prefs.getInteger("recorde2"));} 		// carrega o recorde salvo (ou 0, se não houver nenhum)
+
 }
+

@@ -1,8 +1,10 @@
 package com.nykis.flappy;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,23 +12,30 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.Random;
 
 public class GameLogic {
-    private Logica logica;
+
     private Bird bird;
     private Effects effects;
     private Pipes pipes;
     private TextureManager textureManager;
     private Song song;
-
     private Pontuacao pontuacaos;
     private ConfiguracoesCamera configCamera;
     private Random numeroRandomico;
+    private int EstadoJogo;
 
-    public GameLogic(Logica logica, Bird bird, Effects effects, Pipes pipes,
+    public int getEstadoJogo() {
+        return EstadoJogo;
+    }
+
+    public void setEstadoJogo(int estadoJogo) {
+        EstadoJogo = estadoJogo;
+    }
+
+    public GameLogic(Bird bird, Effects effects, Pipes pipes,
                      TextureManager textureManager, Song song, Pontuacao pontuacaos,
                      ConfiguracoesCamera configCamera, Random numeroRandomico) {
         configCamera = new ConfiguracoesCamera(1080,1920);
         song = new Song ();
-        this.logica = logica;
         this.bird = bird;
         this.effects = effects;
         this.pipes = pipes;
@@ -37,15 +46,61 @@ public class GameLogic {
         this.numeroRandomico = numeroRandomico;
     }
 
+        // dividi logica em 2,  mas é um seguimento ñ necessariamente algo diferente
+    public void logica(Batch batch, SalvarRecord salvarRecord, String pontuacaoStr, Song song, GlyphLayout layout) {
+
+        if (getEstadoJogo() == 0) {
+            iniciarJogo();
+            song.setSomDeColisaoTocado(false);
+        }
+
+        if (getEstadoJogo() != 0) {
+            updateBirdPosition(); // esse funcionou sei lá pq, o chat gp é zi
+            if (getEstadoJogo() == 1) {
+                handleGamePlayState();
+            } else {
+                handleGameOverState();
+            }
+        }
+        logicatwo(batch, salvarRecord, pontuacaoStr, song, layout);
+        batch.end();
+    }
+
+    public void logicatwo(Batch batch, SalvarRecord salvarRecord, String pontuacaoStr, Song song, GlyphLayout layout) {
+                teste(batch,layout,pontuacaoStr);
+                maisDisso(batch,salvarRecord,song);
+    }
+
+    public void uPs(GlyphLayout layout, SpriteBatch batch){
+        batch.begin();
+        pontuacaos.atualizaTudo(); //talvez a causa do sound seja por falta de algo assim
+        configCamera.getCamera().update();
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT); 		//Limpar frames anteriores
+        pontuacaos.setPontuacaoStr(String.valueOf(pontuacaos.getPontuacao()));  // sem  isso a pontuacao não atualiza
+        layout.setText(FontManager.getFonteFont(), pontuacaos.getPontuacaoStr()); // sem isso a pontuacao não fica no meio centralizada
+        pontuacaos.setLarguraPontuacao(layout.width);			 // MUITO IMPORTANTE, MANTEM O SCORE CENTRALIZADO CONFORME AUMENTA OS DIGITOS
+        bird.delta();
+
+    }
+
+      public void iniciarJogo() {   // unico que tá funcionando
+
+        if (getEstadoJogo() == 0) {//jogo n iniciado
+            if (Gdx.input.justTouched()) {
+                setEstadoJogo(getEstadoJogo()+1);
+            }
+        }
+    }
+
     public void updateBirdPosition() {
-        bird.setVelocidadeQueda(bird.getVelocidadeQueda() + 1);
+            bird.setVelocidadeQueda(bird.getVelocidadeQueda() + 1);
         if (bird.getPosicaoInicialVertial() > 0 || bird.getVelocidadeQueda() < 0) {
             bird.setPosicaoInicialVertial(bird.getPosicaoInicialVertial() - bird.getVelocidadeQueda());
         }
     }
 
     public void handleGamePlayState() {
-        if (logica.getEstadoJogo() == 1) {
+        if (getEstadoJogo() == 1) {
             effects.setHasReset(false);
             // som de colisão vira false e será tocado novamente se bate
             // song.setSomDeColisaoTocado(false); // ñ tá funcionando sei lá pq
@@ -74,23 +129,20 @@ public class GameLogic {
                     pontuacaos.setMarcouPonto(true);
                 }
             }
-        } else  {
-            handleGameOverState();
         }
     }
-
     public void teste(Batch batch, GlyphLayout layout, String pontuacaoStr){
         //REMOVER A PONTUAÇÃO DA TELA INICIAL
-        if(logica.getEstadoJogo()!=0){
+            if(getEstadoJogo()!=0){
             FontManager.getFonteFont().draw(batch, pontuacaoStr, configCamera.getLarguraDispositivo() / 2 - pontuacaos.getLarguraPontuacao() / 2, configCamera.getAlturaDispositivo() - 50);// ATUAL MANTEM PONTUAÇÃO CENTRALIZADO INDEPENDE DE QTS DIGITOS
         }
         // IMAGEM/MENSAGEM DE GAME OVER, tamanho, etc.
-        if (logica.getEstadoJogo() == 2) {
+            if (getEstadoJogo() == 2) {
             batch.draw(textureManager.getGameOver(), configCamera.getLarguraDispositivo() / 2 - textureManager.getGameOver().getWidth() / 4, configCamera.getAlturaDispositivo() / 2 - textureManager.getGameOver().getHeight() / 4, textureManager.getGameOver().getWidth() / 2, textureManager.getGameOver().getHeight() / 2);
 
         }
         // MENSAGEM DE INICIAR O JOGO
-        if(logica.getEstadoJogo()==0){
+        if(getEstadoJogo()==0){
             if (!effects.isHasReset()) { //
                 effects.reseta();
                 effects.setHasReset(true);
@@ -104,18 +156,18 @@ public class GameLogic {
         }else {
             FontManager.getFonteFont().getData().setScale(1F);
         }
-
-        bird.setPassarocirculo(new Circle(30 + textureManager.getPassaros()[0].getWidth() / 10, bird.getPosicaoInicialVertial() + textureManager.getPassaros()[0].getHeight() / 10, textureManager.getPassaros()[0].getWidth() / 14));
-        pipes.setRetangulocanoBaixo( new Rectangle(
+                bird.setPassarocirculo(new Circle(30 + textureManager.getPassaros()[0].getWidth() / 10, bird.getPosicaoInicialVertial() + textureManager.getPassaros()[0].getHeight() / 10, textureManager.getPassaros()[0].getWidth() / 14));
+                pipes.setRetangulocanoBaixo( new Rectangle(
                 pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 - textureManager.getCanoBaixo().getHeight() - +pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica(), textureManager.getCanoBaixo().getWidth(), textureManager.getCanoBaixo().getHeight()
         ));
 
-        pipes.setRetangulorecanoTopo(new Rectangle(
+                pipes.setRetangulorecanoTopo(new Rectangle(
                 pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 + pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica(),
                 textureManager.getCanoTopo().getWidth(), textureManager.getCanoTopo().getHeight()
         ));
     }
-    public void maisDisso (Batch batch, SalvarRecord salvarRecord, Song song){
+
+    public  void maisDisso (Batch batch, SalvarRecord salvarRecord, Song song){
         //teste de colisão
         if (Intersector.overlaps(bird.getPassarocirculo(), pipes.getRetangulocanoBaixo()) || Intersector.overlaps(bird.getPassarocirculo(), pipes.getRetangulorecanoTopo()) || (bird.getPosicaoInicialVertial() <= 0) || (bird.getPosicaoInicialVertial() >= configCamera.getAlturaDispositivo())) {
             FontManager.getMensagemFont().draw(batch, "Toque na tela para reiniciar", configCamera.getLarguraDispositivo() / 2 - 270, configCamera.getAlturaDispositivo() / 2 - textureManager.getGameOver().getHeight() / 4);
@@ -129,14 +181,14 @@ public class GameLogic {
                 pontuacaos.setRecorde(pontuacaos.getPontuacao());
                 salvarRecord.salvarRecorde(pontuacaos.getRecorde());
             }
-            logica.setEstadoJogo(2);
+            setEstadoJogo(2);
         }
     }
 
     public void handleGameOverState() {
         if (Gdx.input.justTouched()) {
             if ((bird.getPosicaoInicialVertial() <= 0)) {
-                logica.setEstadoJogo(0);
+                setEstadoJogo(0);
                 bird.setVelocidadeQueda(0);
                 pontuacaos.setPontuacao(0);
                 bird.setPosicaoInicialVertial(configCamera.getAlturaDispositivo() / 2);
