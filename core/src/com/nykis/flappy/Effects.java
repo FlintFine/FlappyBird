@@ -19,10 +19,14 @@ public class Effects {
     private static ParticleEffect snowEffect;
     private static ParticleEffect rainEffect;
     private static ParticleEffect flameEffect;
+    private static ParticleEffect iniciaEffect;
 
     private boolean hasReset = false;
 
     private static List<ParticleEffect> effects = new ArrayList<>();
+
+
+
 
 
 
@@ -62,6 +66,18 @@ public class Effects {
         return effect;
     }
 
+    public static ParticleEffect createIniciaEffect() {
+        ParticleEffect effect = new ParticleEffect();
+        effect.load(Gdx.files.internal("particles/Particle Park Rain Cinematic.p"), Gdx.files.internal("particles"));
+        effect.scaleEffect(2, 2, 2);
+        effect.setPosition( (Gdx.graphics.getWidth()), (float) (Gdx.graphics.getHeight()*1.7));
+        effect.start();
+        effects.add(effect); // Adiciona o efeito na lista
+
+        return effect;
+
+    }
+
     public static void resetAllEffects() {
         for (ParticleEffect effect : effects) {
             effect.reset();
@@ -72,6 +88,7 @@ public class Effects {
         snowEffect = Effects.createSnowEffect();
         rainEffect = Effects.createRainEffect();
         flameEffect = Effects.createFlameEffect();
+        iniciaEffect = Effects.createIniciaEffect();
     }
 
     public static ParticleEffect getSnowEffect() {
@@ -81,6 +98,7 @@ public class Effects {
     public static ParticleEffect getFlameEffect() {
         return  flameEffect;
     }
+    public static ParticleEffect getIniciaEffect() {return iniciaEffect;}
 
     public boolean isHasReset() {
         return hasReset;
@@ -96,9 +114,11 @@ public class Effects {
 snowEffect.dispose();
 rainEffect.dispose();
 flameEffect.dispose();
+iniciaEffect.dispose();
 createFlameEffect().dispose();
 createSnowEffect().dispose();
-createSnowEffect().dispose();
+createRainEffect().dispose();
+createIniciaEffect().dispose();
     }
 
 }

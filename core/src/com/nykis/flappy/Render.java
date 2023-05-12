@@ -10,9 +10,15 @@ public class Render {
     // aqui o codigo fica simples pq eu basicamente só estou colocando os metodos e ñ as variaveis
     public static void renderEffects(int intervaloPontuacaoSprite, Batch batch) {
         switch (intervaloPontuacaoSprite) {
+
+            case 9:
+                Effects.getIniciaEffect().update(Gdx.graphics.getDeltaTime());
+                Effects.getIniciaEffect().draw(batch);
+                break;
             case 1:
                 Effects.getSnowEffect().update(Gdx.graphics.getDeltaTime());
                 Effects.getSnowEffect().draw(batch);
+
                 break;
             case 2:
                 Effects.getRainEffect().update(Gdx.graphics.getDeltaTime());

@@ -27,7 +27,10 @@ package com.nykis.flappy;
             }
         }
         public void updateSprite () {
-            if (pontuacao >= 1 && pontuacao < 10) {    //tentar botar um switch
+         if (pontuacao==1){
+            intervaloPontuacaoSprite=9;
+        }
+            if (pontuacao >= 2 && pontuacao < 10) {    //tentar botar um switch
                 intervaloPontuacaoSprite = 1;
             } if (pontuacao >= 10 && pontuacao < 20) {
                 intervaloPontuacaoSprite = 2;
