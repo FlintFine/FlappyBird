@@ -9,24 +9,15 @@ public class TextureManager {
 //    private Texture canoBaixo;
 //    private Texture canoTopo;
 //    private Texture gameOver;
-    private Texture[] passaros = { new Texture("passaro1.png"), new Texture("passaro2.png"), new Texture("passaro3.png") };
+    private Texture[] passaros = { new Texture("passaro1111.png"), new Texture("passaro 1112.png"), new Texture("passaro3.png") };
     private Texture fundo = new Texture("fundo.png");
     private Texture  fundo2 = new Texture("fundo2.png");
+    private Texture  fundo3 = new Texture("fundo3.png");
+    private Texture  fundo4 = new Texture("fundo4.png");
     private Texture   canoBaixo = new Texture("cano_baixo.png");
     private Texture canoTopo = new Texture("cano_topo.png");
     private Texture  gameOver = new Texture("game_over.png");
 
-//    public void TexturaLoader() {
-//        passaros = new Texture[3];
-//        passaros[0] = new Texture("passaro1.png");
-//        passaros[1] = new Texture("passaro2.png");
-//        passaros[2] = new Texture("passaro3.png");
-//        fundo = new Texture("fundo.png");
-//        fundo2 = new Texture("fundo2.png");
-//        canoBaixo = new Texture("cano_baixo.png");
-//        canoTopo = new Texture("cano_topo.png");
-//        gameOver = new Texture("game_over.png");
-//    }
     public Texture[] getPassaros() {
         return passaros;
     }
@@ -42,6 +33,8 @@ public class TextureManager {
     public void setFundo2(Texture fundo2) {
         this.fundo2 = fundo2;
     }
+    public void setFundo3(Texture fundo3) {this.fundo3 = fundo3;}
+    public void setFundo4(Texture fundo4) {this.fundo4 = fundo4;}
 
     public void setCanoBaixo(Texture canoBaixo) {
         this.canoBaixo = canoBaixo;
@@ -62,6 +55,8 @@ public class TextureManager {
     public Texture getFundo2() {
         return fundo2;
     }
+    public Texture getFundo4() {return fundo4;}
+    public Texture getFundo3() {return fundo3;} // atenção com return no ctrl d
 
     public Texture getCanoBaixo() {
         return canoBaixo;
@@ -78,6 +73,7 @@ public class TextureManager {
     public void dispose() {
         getFundo().dispose();
         getFundo2().dispose();
+        getFundo3().dispose();
         getCanoBaixo().dispose();
         getCanoTopo().dispose();
         getGameOver().dispose();

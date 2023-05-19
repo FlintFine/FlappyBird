@@ -32,7 +32,7 @@ public class Render {
                 break;
         }
     }
-    public void renderBackground(SpriteBatch batch, Texture fundo, Texture fundo2, int intervaloPontuacao, float larguraDispositivo, float alturaDispositivo) {
+    public void renderBackground(SpriteBatch batch, Texture fundo, Texture fundo2,Texture fundo3,Texture fundo4,int intervaloPontuacao, float larguraDispositivo, float alturaDispositivo) {
         switch (intervaloPontuacao) {
             case 0:
                 batch.draw(fundo, 0, 0, larguraDispositivo, alturaDispositivo);
@@ -40,13 +40,19 @@ public class Render {
             case 1:
                 batch.draw(fundo2, 0, 0, larguraDispositivo, alturaDispositivo);
                 break;
+            case 2:
+                batch.draw(fundo3, 0, 0, larguraDispositivo, alturaDispositivo);
+                break;
+            case 3:
+                batch.draw(fundo4, 0, 0, larguraDispositivo, alturaDispositivo);
+                break;
             default:
                 break;
         }
     }
     public void renderizarTudo(Batch batch, TextureManager textureManager, Pipes pipes, Bird bird, Pontuacao pontuacaos, ConfiguracoesCamera configCamera) {
             batch.setProjectionMatrix(configCamera.getCamera().combined);
-            renderBackground((SpriteBatch) batch, textureManager.getFundo(), textureManager.getFundo2(), pontuacaos.getIntervaloPontuacao(), configCamera.getLarguraDispositivo(), configCamera.getAlturaDispositivo());
+            renderBackground((SpriteBatch) batch, textureManager.getFundo(), textureManager.getFundo2(),textureManager.getFundo3(),textureManager.getFundo4(), pontuacaos.getIntervaloPontuacao(), configCamera.getLarguraDispositivo(), configCamera.getAlturaDispositivo());
             batch.draw(textureManager.getCanoTopo(), pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 + pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica());
             batch.draw(textureManager.getCanoBaixo(), pipes.getPosicaoMovimentoCanoHorizontal(), configCamera.getAlturaDispositivo() / 2 - textureManager.getCanoBaixo().getHeight() - +pipes.getEspacoEntreCanos() / 2 + pipes.getAlturaEntreCanosRandomica());
             batch.draw(textureManager.getPassaros()[(int) bird.getVariacao()], 30, bird.getPosicaoInicialVertial(), 115, 115);
@@ -56,6 +62,7 @@ public class Render {
     public void dispose(TextureManager textureManager) {
         textureManager.getFundo().dispose();
         textureManager.getFundo2().dispose();
+        textureManager.getFundo3().dispose();
         textureManager.getCanoBaixo().dispose();
         textureManager.getCanoTopo().dispose();
         textureManager.getGameOver().dispose();

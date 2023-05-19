@@ -77,6 +77,7 @@ public class Flappy extends ApplicationAdapter {
 			FontManager.getZemaFont().dispose();
 			textureManager.getFundo().dispose();
 			textureManager.getFundo2().dispose();
+			textureManager.getFundo3().dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

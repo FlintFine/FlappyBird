@@ -20,25 +20,30 @@ package com.nykis.flappy;
         }
 
         public void update() {
-            if (pontuacao >= 0 && pontuacao < 2) {          //tentar botar um switch
-                intervaloPontuacao = 0;
-            } else if (pontuacao >= 2) {
-                intervaloPontuacao = 1;
+            if (getPontuacao() >= 0 && getPontuacao() < 5) {          //tentar botar um switch
+                setIntervaloPontuacao(0);
+
+            } if (getPontuacao() >=5 && getPontuacao() <=10 ) {
+                setIntervaloPontuacao(1);
+            } if (getPontuacao() >=10 && getPontuacao() <=20 ) {
+                setIntervaloPontuacao(3);
+            } if (getPontuacao() > 20 ){
+                setIntervaloPontuacao(2);
             }
         }
         public void updateSprite () {
-         if (pontuacao==1){
-            intervaloPontuacaoSprite=9;
-        }
-            if (pontuacao >= 2 && pontuacao < 10) {    //tentar botar um switch
-                intervaloPontuacaoSprite = 1;
-            } if (pontuacao >= 10 && pontuacao < 20) {
-                intervaloPontuacaoSprite = 2;
+         if (getPontuacao()>=5 && getPontuacao()<10){
+             setIntervaloPontuacaoSprite(9);
+         }
+            if (getPontuacao() >= 10 && getPontuacao() < 20) {    //tentar botar um switch
+                setIntervaloPontuacaoSprite(1);
+            } if (getPontuacao() >= 20 && getPontuacao() < 30) {
+                setIntervaloPontuacaoSprite(2);
             }
-            if (pontuacao >= 20 && pontuacao < 30) {
-                intervaloPontuacaoSprite = 3;
-            } if (pontuacao==0){
-                intervaloPontuacaoSprite=0;
+            if (getPontuacao() >= 40 && getPontuacao() < 50) {
+                setIntervaloPontuacaoSprite(3);
+            } if (getPontuacao()==0){
+                setIntervaloPontuacaoSprite(0);
             }
         }
         public void atualizaTudo() {
@@ -65,36 +70,12 @@ package com.nykis.flappy;
         public int getIntervaloPontuacao() {
             return intervaloPontuacao;
         }
+
+        public void setIntervaloPontuacao(int intervaloPontuacao) {this.intervaloPontuacao = intervaloPontuacao;}
+
+        public void setIntervaloPontuacaoSprite(int intervaloPontuacaoSprite) {this.intervaloPontuacaoSprite = intervaloPontuacaoSprite;}
+
         public int getIntervaloPontuacaoSprite() {
             return intervaloPontuacaoSprite;
         }}
-
-    //Anteriormente
-
-//        public int update(int intervaloPontuacao) {
-//            if (pontuacao >= 0 && pontuacao < 2) {
-//                intervaloPontuacao = 0;
-//            } else if (pontuacao >= 2) {
-//                intervaloPontuacao = 1;
-//            }
-//            return intervaloPontuacao;
-//        }
-//        public int updateSprite (int intervaloPontuacaoSprite) {
-//            if (pontuacao >= 1 && pontuacao < 10) {
-//                intervaloPontuacaoSprite = 1;
-//            } if (pontuacao >= 10 && pontuacao < 20) {
-//                intervaloPontuacaoSprite = 2;
-//            }
-//            if (pontuacao >= 20 && pontuacao < 30) {
-//                intervaloPontuacaoSprite = 3;
-//            } if (pontuacao==0){
-//                intervaloPontuacaoSprite=0;
-//            }
-//            return intervaloPontuacaoSprite;
-//        }
-
-//no lugar de atualiza tudo
-//		intervaloPontuacao = pontuacaos.update(intervaloPontuacao);
-//		intervaloPontuacaoSprite=pontuacaos.updateSprite(intervaloPontuacaoSprite);
-//		pontuacaos.setPontuacao(pontuacaos.getPontuacao()); // >>Set Atualiza o valor da pontuação, se ñ fizer isso a pontuação n atualiza para cair na condição do IF
 

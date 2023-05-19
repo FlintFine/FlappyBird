@@ -22,15 +22,12 @@ public class GameLogic {
     private ConfiguracoesCamera configCamera;
     private Random numeroRandomico;
     private int EstadoJogo;
-
     public int getEstadoJogo() {
         return EstadoJogo;
     }
-
     public void setEstadoJogo(int estadoJogo) {
         EstadoJogo = estadoJogo;
     }
-
     public GameLogic(Bird bird, Effects effects, Pipes pipes,
                      TextureManager textureManager, Song song, Pontuacao pontuacaos,
                      ConfiguracoesCamera configCamera, Random numeroRandomico) {
