@@ -27,8 +27,10 @@ package com.nykis.flappy;
                 setIntervaloPontuacao(1);
             } if (getPontuacao() >=10 && getPontuacao() <=20 ) {
                 setIntervaloPontuacao(3);
-            } if (getPontuacao() > 20 ){
+            } if (getPontuacao() > 20 && getPontuacao() <=40 ){
                 setIntervaloPontuacao(2);
+            }if (getPontuacao() > 40 ){
+                setIntervaloPontuacao(0);
             }
         }
         public void updateSprite () {
@@ -42,7 +44,7 @@ package com.nykis.flappy;
             }
             if (getPontuacao() >= 40 && getPontuacao() < 50) {
                 setIntervaloPontuacaoSprite(3);
-            } if (getPontuacao()==0){
+            } if (getPontuacao()==0 || getPontuacao()>50){
                 setIntervaloPontuacaoSprite(0);
             }
         }
